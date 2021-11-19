@@ -1,23 +1,24 @@
 {
   "name": "electron-vue",
-  "author": "Gorbachev Amir <amir.gorbachyow@yandex.ru>",
-  "description": "Graduate work",
   "version": "0.1.0",
   "private": true,
-  "main": "main.js",
+  "description": "Graduate work",
+  "author": "Gorbachev Amir <amir.gorbachyow@yandex.ru>",
   "scripts": {
-    "start": "electron-forge start",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "make": "electron-forge make",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "start": "electron-forge start"
   },
+  "main": "main.js",
   "dependencies": {
     "core-js": "^2.6.5",
     "electron-squirrel-startup": "^1.0.0",
     "vue": "^2.6.10",
-    "vue-router": "^3.0.3"
+    "vue-router": "^3.0.3",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.61",
