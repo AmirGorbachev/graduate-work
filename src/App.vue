@@ -4,24 +4,22 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 <script>
-const electron = window.require("electron")
-
+const electron = window.require('electron');
 
 export default {
-  mounted: function(){
-    electron.ipcRenderer.on('goToHome', ()=>{
+  mounted: function() {
+    electron.ipcRenderer.on('goToHome', () => {
       this.$router.push('/');
     });
-    electron.ipcRenderer.on('goToAbout', ()=>{
+    electron.ipcRenderer.on('goToAbout', () => {
       this.$router.push('/about');
     });
-  }
-}
-
+  },
+};
 </script>
 <style>
 #app {
