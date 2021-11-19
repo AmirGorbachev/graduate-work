@@ -13,7 +13,7 @@ function createMenu() {
         {
           label: 'Home',
           click() {
-            console.log('Navigate to Home');
+            // console.log('Navigate to Home');
             mainWindow.webContents.send('goToHome;');
           },
         },
@@ -21,7 +21,7 @@ function createMenu() {
           label: 'About',
 
           click() {
-            console.log('Navigate to About');
+            // console.log('Navigate to About');
             mainWindow.webContents.send('goToAbout');
           },
         },
@@ -61,7 +61,7 @@ function createWindow() {
     mainWindow = null;
   });
 }
-console.log(app);
+// console.log(app);
 app.on('ready', createWindow);
 
 app.on('window-all-closed', function() {

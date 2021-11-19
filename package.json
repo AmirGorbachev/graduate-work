@@ -8,9 +8,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "make": "electron-forge make",
-    "package": "electron-forge package",
-    "start": "electron-forge start"
+    "make": "vue-cli-service build && electron-forge make",
+    "package": "vue-cli-service build && electron-forge package",
+    "start": "vue-cli-service build && electron-forge start"
   },
   "main": "main.js",
   "dependencies": {
