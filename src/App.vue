@@ -1,7 +1,9 @@
-<template>
-  <div id="app">
-    <router-view />
-  </div>
+<template lang='pug'>
+  #app
+    #nav
+      router-link(to="/") Проекты
+      router-link(to="/about") Команды
+    router-view
 </template>
 
 <script>
@@ -34,6 +36,9 @@
 }
 #nav {
   padding: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
 }
 
 #nav a {

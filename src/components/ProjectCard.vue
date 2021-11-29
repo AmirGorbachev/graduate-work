@@ -1,19 +1,25 @@
 <template lang="pug">
-  p {{msg}}
+  .project-card
+    p ProjectCard
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'ProjectCard',
   props: {
     msg: String,
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 p {
   color: red;
+}
+
+.project-card {
+  width: 280px;
+  height: 560px;
+  background: grey;
 }
 </style>
