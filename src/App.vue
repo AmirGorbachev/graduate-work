@@ -7,6 +7,7 @@
     <router-view />
   </div>
 </template>
+
 <script>
 // const electron = window.require('electron');
 
@@ -21,7 +22,8 @@
 //   },
 // };
 </script>
-<style>
+
+<style lang="scss">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
