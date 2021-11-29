@@ -29,6 +29,8 @@
     "@vue/cli-plugin-babel": "^4.5.15",
     "@vue/cli-service": "^4.5.15",
     "electron": "^16.0.2",
+    "sass": "^1.22.10",
+    "sass-loader": "^7.2.0",
     "vue-cli-plugin-pug": "~2.0.0",
     "vue-template-compiler": "^2.6.14"
   },
