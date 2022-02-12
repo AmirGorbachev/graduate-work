@@ -1,7 +1,8 @@
-<template lang='pug'>
+<template lang="pug">
   <div class="home">
     HelloWorld(msg="Welcome to Your Vue.js App")
     ProjectCard
+    h5(@click.prevent='addLocalStorage') 88888888
   </div>
 </template>
 
@@ -14,6 +15,16 @@ export default {
   name: 'home',
   components: {
     HelloWorld,
+  },
+  mounted() {
+    if (localStorage.getItem('test')) {
+      console.log(7887);
+    }
+  },
+  methods: {
+    addLocalStorage() {
+      localStorage.setItem('test', 1);
+    },
   },
 };
 </script>
