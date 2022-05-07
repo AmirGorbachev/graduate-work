@@ -19,8 +19,6 @@ export default {
   },
   data() {
     return {
-      top: 30,
-      left: 25,
       isMapEvent: false,
       point: { x: 0, y: 0 },
     };
@@ -40,8 +38,8 @@ export default {
     mouseup(e) {
       if (this.isMapEvent) {
         console.log({ x: e.clientX, y: e.clientY });
-        console.log('isMapEvent');
-        console.log(e.clientX);
+
+        // this.$refs.background.removeEventListener('mousemove', this.moveMap(e));
 
         this.isMapEvent = false;
       } else {
@@ -49,21 +47,24 @@ export default {
       }
     },
     initBackground() {
-      this.$refs.background.style.top = this.top + 'px';
-      this.$refs.background.style.left = this.left + 'px';
+      this.$refs.background.style.top = this.point.y + 'px';
+      this.$refs.background.style.left = this.point.x + 'px';
     },
     changeMapPos(e) {
       this.isMapEvent = true;
       this.point = { x: e.clientX, y: e.clientY };
 
-      window.addEventListener('mousemove', (event) => {
-        console.log(event.clientX);
-        this.$refs.background.style.top = this.top + event.clientX +  'px';
+      // this.$refs.background.addEventListener('mousemove', this.moveMap(event));
+      this.$refs.background.addEventListener('mousemove', (event) => {
+        this.$refs.background.style.top =
+          this.top + (event.clientY - this.point.y) + 'px';
       });
+    },
+    moveMap(event) {
+      console.log(555);
 
-      console.log(this.point);
-      this.top += 5;
-      // this.$refs.background.style.top = this.top + 'px';
+      this.$refs.background.style.top =
+        this.top + (event.clientY - this.point.y) + 'px';
     },
   },
 };
