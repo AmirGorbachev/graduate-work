@@ -39,9 +39,12 @@ export default {
     },
     mouseup(e) {
       if (this.isMapEvent) {
-        console.log({ x: e.clientX, y: e.clientY });
-        console.log('isMapEvent');
-        console.log(e.clientX);
+        console.log(12)
+
+        this.$refs.background.removeEventListener(
+          'mousemove',
+          this.moveMap(e)
+        );
 
         this.isMapEvent = false;
       } else {
@@ -56,15 +59,15 @@ export default {
       this.isMapEvent = true;
       this.point = { x: e.clientX, y: e.clientY };
 
-      // this.$refs.background.addEventListener('mousemove', this.moveMap(event));
+      this.$refs.background.addEventListener('mousemove', this.moveMap(event))
       this.$refs.background.addEventListener('mousemove', (event) => {
         this.$refs.background.style.top =
           this.top + (event.clientY - this.point.y) + 'px';
       });
-
-      console.log(this.point);
-      this.top += 5;
-      // this.$refs.background.style.top = this.top + 'px';
+    },
+    moveMap(event) {
+      this.$refs.background.style.top =
+        this.top + (event.clientY - this.point.y) + 'px';
     },
   },
 };
