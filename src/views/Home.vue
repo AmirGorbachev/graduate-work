@@ -8,8 +8,8 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
-import ProjectCard from '@/components/ProjectCard.vue';
+import HelloWorld from '@/components/HelloWorld.vue'
+import ProjectCard from '@/components/ProjectCard.vue'
 
 export default {
   name: 'home',
@@ -19,65 +19,55 @@ export default {
   },
   data() {
     return {
-      top: 30,
-      left: 25,
       isMapEvent: false,
       point: { x: 0, y: 0 },
-    };
+    }
   },
   mounted() {
-    this.initBackground();
-    window.addEventListener('mouseup', this.mouseup);
+    this.initBackground()
+    window.addEventListener('mouseup', this.mouseup)
 
     if (localStorage.getItem('test')) {
-      console.log(7887);
+      console.log(7887)
     }
   },
   methods: {
     addLocalStorage() {
-      localStorage.setItem('test', 1);
+      localStorage.setItem('test', 1)
     },
     mouseup(e) {
       if (this.isMapEvent) {
-        // console.log(e.target.onmousemove = null)
-        const event = e
-        console.log(event.target)
-            console.log(this.$refs.background.clientX)
-
-        this.$refs.background.removeEventListener(
-          'mousemove',
-          () => {
-            console.log(this.$refs.background)
-          }
-        );
-
-        this.isMapEvent = false;
+        this.isMapEvent = false
       } else {
-        console.log('not isMapEvent');
+        // console.log('not isMapEvent')
       }
     },
     initBackground() {
-      this.$refs.background.style.top = this.point.y + 'px';
-      this.$refs.background.style.left = this.point.x + 'px';
+      this.$refs.background.style.top = this.point.y + 'px'
+      this.$refs.background.style.left = this.point.x + 'px'
     },
     changeMapPos(e) {
-      this.isMapEvent = true;
-      this.point = { x: e.clientX, y: e.clientY };
+      this.isMapEvent = true
+      this.point = { x: e.clientX, y: e.clientY }
+
+      console.log(e)
 
       // this.$refs.background.addEventListener('mousemove', this.moveMap(event))
       this.$refs.background.addEventListener('mousemove', (event) => {
-        this.$refs.background.style.top =
-          this.top + (event.clientY - this.point.y) + 'px';
-        this.$refs.background.style.left =
-          this.top + (event.clientX - this.point.x) + 'px';
-      });
-    },
-    moveMap(event) {
-      this.$refs.background.style.top =
-        this.top + (event.clientY - this.point.y) + 'px';
+        if (this.isMapEvent) {
+          console.log({
+            clientY: event.clientY,
+            clientX: event.clientX,
+            offsetY: e.offsetY,
+            offsetX: e.offsetX,
+          })
+          this.$refs.background.style.top = event.clientY - e.offsetY + 'px'
+          this.$refs.background.style.left = event.clientX - e.offsetX + 'px'
+        }
+      })
     },
   },
-};
+}
 </script>
 
 <style scoped lang="scss">
