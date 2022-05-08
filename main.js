@@ -1,9 +1,9 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu } = require('electron')
 
-const url = require('url');
-const path = require('path');
+const url = require('url')
+const path = require('path')
 
-let mainWindow;
+let mainWindow
 
 function createMenu() {
   var menu = Menu.buildFromTemplate([
@@ -19,7 +19,6 @@ function createMenu() {
     //     },
     //     {
     //       label: 'About',
-
     //       click() {
     //         // console.log('Navigate to About');
     //         mainWindow.webContents.send('goToAbout');
@@ -33,18 +32,19 @@ function createMenu() {
     //     },
     //   ],
     // },
-  ]);
-  Menu.setApplicationMenu(menu);
+  ])
+  Menu.setApplicationMenu(menu)
 }
 
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1600,
     height: 900,
+    fullscreen: true,
     webPreferences: {
       nodeIntegration: true,
     },
-  });
+  })
 
   mainWindow.loadURL(
     url.format({
@@ -52,22 +52,22 @@ function createWindow() {
       protocol: 'file:',
       slashes: true,
     })
-  );
-  mainWindow.webContents.openDevTools();
+  )
+  mainWindow.webContents.openDevTools()
 
-  createMenu();
+  createMenu()
 
-  mainWindow.on('closed', function() {
-    mainWindow = null;
-  });
+  mainWindow.on('closed', function () {
+    mainWindow = null
+  })
 }
 // console.log(app);
-app.on('ready', createWindow);
+app.on('ready', createWindow)
 
-app.on('window-all-closed', function() {
-  if (process.platform !== 'darwin') app.quit();
-});
+app.on('window-all-closed', function () {
+  if (process.platform !== 'darwin') app.quit()
+})
 
-app.on('activate', function() {
-  if (mainWindow === null) createWindow();
-});
+app.on('activate', function () {
+  if (mainWindow === null) createWindow()
+})
