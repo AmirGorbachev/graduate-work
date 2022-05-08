@@ -3,11 +3,21 @@
     .field
       .field__list
         .field__item.cell(v-for='(item, index) in field')
-          .cell__wrapper(:class='getCellClass(item.id)' ref='cell' @click='pickCell(item)')
-            p(v-html='item.label')
-            p {{item.value}}
+          .cell__wrapper(:class='getCellClass(index)' ref='cell' @click='pickCell(item, index)')
+            p(v-if='item.value == `pawn` && item.team == 1' v-html='`&#9817;`')
+            p(v-else-if='item.value == `pawn` && item.team == 2' v-html='`&#9823;`')
+            p(v-else-if ='item.value == `rook` && item.team == 1' v-html='`&#9814;`')
+            p(v-else-if ='item.value == `rook` && item.team == 2' v-html='`&#9820;`')
+            p(v-else-if ='item.value == `knight` && item.team == 1' v-html='`&#9816;`')
+            p(v-else-if ='item.value == `knight` && item.team == 2' v-html='`&#9822;`')
+            p(v-else-if ='item.value == `bishop` && item.team == 1' v-html='`&#9815;`')
+            p(v-else-if ='item.value == `bishop` && item.team == 2' v-html='`&#9821;`')
+            p(v-else-if ='item.value == `queen` && item.team == 1' v-html='`&#9813;`')
+            p(v-else-if ='item.value == `queen` && item.team == 2' v-html='`&#9819;`')
+            p(v-else-if ='item.value == `king` && item.team == 1' v-html='`&#9812;`')
+            p(v-else-if ='item.value == `king` && item.team == 2' v-html='`&#9818;`')
 
-    pre {{availableMoveListId}}
+    pre availableMoveListId: {{availableMoveListId}}
 </template>
 
 <script>
@@ -17,115 +27,106 @@ export default {
   data() {
     return {
       field: [
-        { id: 0, value: '', label: '' },
-        { id: 1, value: '', label: '' },
-        { id: 2, value: '', label: '' },
-        { id: 3, value: '', label: '' },
-        { id: 4, value: '', label: '' },
-        { id: 5, value: '', label: '' },
-        { id: 6, value: '', label: '' },
-        { id: 7, value: '', label: '' },
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
 
-        { id: 8, value: '', label: '' },
-        { id: 9, value: '', label: '' },
-        { id: 10, value: '', label: '' },
-        { id: 11, value: '', label: '' },
-        { id: 12, value: '', label: '' },
-        { id: 13, value: '', label: '' },
-        { id: 14, value: '', label: '' },
-        { id: 15, value: '', label: '' },
+        { value: 'pawn', team: 2, moved: false },
+        { value: 'pawn', team: 2, moved: false },
+        { value: 'pawn', team: 2, moved: false },
+        { value: 'pawn', team: 2, moved: false },
+        { value: 'pawn', team: 2, moved: false },
+        { value: 'pawn', team: 2, moved: false },
+        { value: 'pawn', team: 2, moved: false },
+        { value: 'pawn', team: 2, moved: false },
 
-        { id: 16, value: '', label: '' },
-        { id: 17, value: '', label: '' },
-        { id: 18, value: '', label: '' },
-        { id: 19, value: '', label: '' },
-        { id: 20, value: '', label: '' },
-        { id: 21, value: '', label: '' },
-        { id: 22, value: '', label: '' },
-        { id: 23, value: '', label: '' },
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
 
-        { id: 24, value: '', label: '' },
-        { id: 25, value: '', label: '' },
-        { id: 26, value: '', label: '' },
-        { id: 27, value: '', label: '' },
-        { id: 28, value: '', label: '' },
-        { id: 29, value: '', label: '' },
-        { id: 30, value: '', label: '' },
-        { id: 31, value: '', label: '' },
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
 
-        { id: 32, value: '', label: '' },
-        { id: 33, value: '', label: '' },
-        { id: 34, value: '', label: '' },
-        { id: 35, value: '', label: '' },
-        { id: 36, value: '', label: '' },
-        { id: 37, value: '', label: '' },
-        { id: 38, value: '', label: '' },
-        { id: 39, value: '', label: '' },
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
 
-        { id: 40, value: '', label: '' },
-        { id: 41, value: '', label: '' },
-        { id: 42, value: '', label: '' },
-        { id: 43, value: '', label: '' },
-        { id: 44, value: '', label: '' },
-        { id: 45, value: '', label: '' },
-        { id: 46, value: '', label: '' },
-        { id: 47, value: '', label: '' },
+        {},
+        {},
+        { value: 'pawn', team: 2, moved: false },
+        {},
+        {},
+        { value: 'pawn', team: 1, moved: false },
+        { value: '' },
+        { value: '' },
 
-        { id: 48, value: 'pawn', label: '&#9817;', team: true, moved: false },
-        { id: 49, value: 'pawn', label: '&#9817;', team: true, moved: false },
-        { id: 50, value: 'pawn', label: '&#9817;', team: true, moved: false },
-        { id: 51, value: 'pawn', label: '&#9817;', team: true, moved: false },
-        { id: 52, value: 'pawn', label: '&#9817;', team: true, moved: false },
-        { id: 53, value: 'pawn', label: '&#9817;', team: true, moved: false },
-        { id: 54, value: 'pawn', label: '&#9817;', team: true, moved: false },
-        { id: 55, value: 'pawn', label: '&#9817;', team: true, moved: false },
+        { value: 'pawn', team: 1, moved: false },
+        { value: 'pawn', team: 1, moved: false },
+        { value: 'pawn', team: 1, moved: false },
+        { value: 'pawn', team: 1, moved: false },
+        { value: 'pawn', team: 1, moved: false },
+        { value: 'pawn', team: 1, moved: false },
+        { value: 'pawn', team: 1, moved: false },
+        { value: 'pawn', team: 1, moved: false },
 
-        { id: 56, value: 'rook', label: '&#9814;', team: true, moved: false },
+        { value: 'rook', team: 1, moved: false },
         {
-          id: 57,
           value: 'knight',
-          label: '&#9816;',
-          team: true,
+          team: 1,
           moved: false,
         },
         {
-          id: 58,
           value: 'bishop',
-          label: '&#9815;',
-          team: true,
+          team: 1,
           moved: false,
         },
         {
-          id: 59,
           value: 'queen',
-          label: '&#9813;',
-          team: true,
+          team: 1,
           moved: false,
         },
-        { id: 60, value: 'king', label: '&#9812;', team: true, moved: false },
+        { value: 'king', team: 1, moved: false },
         {
-          id: 61,
           value: 'bishop',
-          label: '&#9815;',
-          team: true,
+          team: 1,
           moved: false,
         },
         {
-          id: 62,
           value: 'knight',
-          label: '&#9816;',
-          team: true,
+          team: 1,
           moved: false,
         },
-        { id: 63, value: 'rook', label: '&#9814;', team: true, moved: false },
+        { value: 'rook', team: 1, moved: false },
       ],
+      activeCellId: null,
       activeCell: {},
     }
   },
   mounted() {},
   methods: {
     getCellClass(id) {
-      if (id == this.activeCell?.id) {
+      if (id == this.activeCellId) {
         return 'cell__wrapper_active'
       }
 
@@ -133,25 +134,26 @@ export default {
         return 'cell__wrapper_pos-move'
       }
     },
-    pickCell(cell) {
-      if (!this.activeCell?.id || !this.activeCell.value) {
+    pickCell(cell, id) {
+      if (
+        !this.activeCellId ||
+        !this.activeCell.value ||
+        !this.isAvailableMove(this.activeCell, id)
+      ) {
+        this.activeCellId = id
         this.activeCell = cell
 
         return
       }
 
-      this.isAvailableMove(this.activeCell, cell)
-        ? this.move(cell)
-        : (this.activeCell = cell)
-
-      // const cell = this.$refs.cell[id]
+      this.move(cell)
     },
-    isAvailableMove(cell, newCell) {
+    isAvailableMove(cell, newCellId) {
       if (!cell.value) {
         return false
       }
 
-      if (this.availableMoveListId.includes(newCell.id)) {
+      if (this.availableMoveListId.includes(newCellId)) {
         return true
       }
 
@@ -163,23 +165,47 @@ export default {
       cell.team = this.activeCell.team
       cell.moved = true
 
+      this.activeCellId = null
+
       this.activeCell.label = ''
       this.activeCell.value = ''
       this.activeCell.team = ''
       this.activeCell.moved = ''
-
-      this.activeCell = {}
     },
   },
   computed: {
     availableMoveListId() {
+      if (!this.activeCellId) {
+        return []
+      }
+
       let list = []
 
       if (this.activeCell.value == 'pawn') {
-        list.push(this.activeCell.id - 8)
+        if (!this.field[this.activeCellId - 8].value) {
+          list.push(this.activeCellId - 8)
+        }
 
-        if (!this.activeCell?.moved) {
-          list.push(this.activeCell.id - 16)
+        if (
+          !this.activeCell?.moved &&
+          !this.field[this.activeCellId - 16].value &&
+          !this.field[this.activeCellId - 8].value
+        ) {
+          list.push(this.activeCellId - 16)
+        }
+
+        if (
+          typeof this.field[this.activeCellId - 7]?.team == 'number' &&
+          this.activeCell?.team != this.field[this.activeCellId - 7]?.team
+        ) {
+          list.push(this.activeCellId - 7)
+        }
+
+        if (
+          typeof this.field[this.activeCellId - 9]?.team == 'number' &&
+          this.activeCell?.team != this.field[this.activeCellId - 9]?.team
+        ) {
+          list.push(this.activeCellId - 9)
         }
       }
 
@@ -229,15 +255,15 @@ $item: 100px;
     }
 
     &_active {
-      background: darken(#fdd9b5, 10%);
+      background: darken(#fdd9b5, 15%);
     }
 
     &_pos-move {
-      background: lighten(#fdd9b5, 5%);
+      background: lighten(#fdd9b5, 10%);
     }
 
     p {
-      font-size: 24px;
+      font-size: 64px;
     }
   }
 }
