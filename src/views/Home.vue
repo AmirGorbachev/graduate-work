@@ -18,78 +18,51 @@ export default {
     ProjectCard,
   },
   data() {
-    return {
-      isMapEvent: false,
-      point: { x: 0, y: 0 },
-      // padding: 50,
-      // isMovingRight: false,
-      // isMovingLeft: false,
-      // isMovingTop: false,
-      // isMovingBottom: false,
-    }
+    return {}
   },
   mounted() {
-    this.initBackground()
+    document.onmousedown = (event) => {
+      let shiftX =
+        event.clientX - this.$refs.background.getBoundingClientRect().left
+      let shiftY =
+        event.clientY - this.$refs.background.getBoundingClientRect().top
 
-    // const speed = 20
+      this.$refs.background.style.position = 'absolute'
+      this.$refs.background.style.zIndex = 1000
+      document.body.append(this.$refs.background)
 
-    // setInterval(() => {
-    //   if (this.isMovingRight) {
-    //     console.log(456)
-    //     this.$refs.background.style.transform = `translate(${(this.point.x +=
-    //       speed)}px, ${this.point.y}px)`
-    //   }
-    //   if (
-    //     this.isMovingLeft &&
-    //     this.$refs.background.getBoundingClientRect().left >
-    //       this.$refs.main.getBoundingClientRect().left
-    //   ) {
-    //     this.$refs.background.style.transform = `translate(${(this.point.x -=
-    //       speed)}px, ${this.point.y}px)`
-    //   }
-    //   if (this.isMovingTop) {
-    //     this.$refs.background.style.transform = `translate(${
-    //       this.point.x
-    //     }px, ${(this.point.y += speed)}px)`
-    //   }
-    //   if (this.isMovingBottom) {
-    //     this.$refs.background.style.transform = `translate(${
-    //       this.point.x
-    //     }px, ${(this.point.y -= speed)}px)`
-    //   }
-
-    //   console.log(this.$refs.background.getBoundingClientRect().left)
-    //   console.log(this.$refs.main.getBoundingClientRect().left)
-    // }, 100)
-
-    this.$refs.main.addEventListener('mousemove', (event) => {
-      if (event.clientX < this.padding) {
-        this.isMovingRight = true
-      } else if (
-        event.clientX >
-        this.$refs.main.getBoundingClientRect().width - this.padding
-      ) {
-        this.isMovingLeft = true
-      } else {
-        this.isMovingRight = false
-        this.isMovingLeft = false
+      // переносит мяч на координаты (pageX, pageY),
+      // дополнительно учитывая изначальный сдвиг относительно указателя мыши
+      let moveAt = (pageX, pageY) => {
+        if (this.$refs.background.style.left >= 0) {
+          this.$refs.background.style.left = pageX - shiftX + 'px'
+        }
+        this.$refs.background.style.left = pageX - shiftX + 'px'
+        this.$refs.background.style.top = pageY - shiftY + 'px'
       }
 
-      if (event.clientY < this.padding) {
-        this.isMovingTop = true
-      } else if (
-        event.clientY >
-        this.$refs.main.getBoundingClientRect().height - this.padding
-      ) {
-        this.isMovingBottom = true
-      } else {
-        this.isMovingTop = false
-        this.isMovingBottom = false
+      let onMouseMove = (event) => {
+        moveAt(event.pageX, event.pageY)
       }
-    })
+
+      moveAt(event.pageX, event.pageY)
+
+      // передвигаем мяч при событии mousemove
+      document.addEventListener('mousemove', onMouseMove)
+
+      // отпустить мяч, удалить ненужные обработчики
+      document.onmouseup = () => {
+        document.removeEventListener('mousemove', onMouseMove)
+        this.$refs.background.onmouseup = null
+      }
+    }
+
+    this.$refs.background.ondragstart = function () {
+      return false
+    }
 
     if (localStorage.getItem('test')) {
-      console.log(7887)
+      console.log('store')
     }
   },
   methods: {
@@ -101,14 +74,7 @@ export default {
         this.$refs.background.style.left = this.point.x-- + 'px'
       }, 1000)
     },
-    initBackground() {
-      this.$refs.background.style.top = this.point.y + 'px'
-      this.$refs.background.style.left = this.point.x + 'px'
-    },
-    changeMapPos(e) {
-      this.isMapEvent = true
-      this.point = { x: e.clientX, y: e.clientY }
-    },
+    changeMapPos() {},
   },
   watch: {},
 }
@@ -119,7 +85,7 @@ export default {
   width: 100vw;
   height: 100vh;
   background: green;
-  z-index: -1;
+  opacity: 0.7;
 }
 
 .background {
@@ -127,8 +93,8 @@ export default {
   height: 500px;
   background: lime;
   position: absolute;
-  top: 0;
-  left: 0;
-  transition: all 0.5s ease-out 0s;
+  top: 50;
+  left: 50;
+  // transition: all 0.5s ease-out 0s;
 }
 </style>
