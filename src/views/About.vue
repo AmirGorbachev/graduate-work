@@ -1,5 +1,30 @@
 <template lang="pug">
-  p Ntcn
+  .map
+    //- Field
+    Chess
 </template>
 
-<style scoped lang="scss"></style>
+<script>
+import Field from '@/components/Field'
+import Chess from '@/components/Chess'
+
+export default {
+  name: 'home',
+  components: { Field, Chess },
+  data() {
+    return {
+    }
+  },
+  mounted() {},
+  methods: {},
+  watch: {},
+}
+</script>
+
+<style scoped lang="scss">
+.map {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

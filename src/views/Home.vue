@@ -1,21 +1,18 @@
 <template lang="pug">
   div
     div.main-area(ref='main')
-      HelloWorld(msg="Welcome to Your Vue.js App")
       div.background(ref='background' @mousedown='changeMapPos')
-      h5(@click.prevent='addLocalStorage') 88888888
+        Field
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-import ProjectCard from '@/components/ProjectCard.vue'
+import Field from '@/components/Field'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld,
-    ProjectCard,
+    Field,
   },
   data() {
     return {}
@@ -84,17 +81,13 @@ export default {
 .main-area {
   width: 100vw;
   height: 100vh;
-  background: green;
-  opacity: 0.7;
+  background: url('../assets/sky.jpg');
 }
 
 .background {
-  width: 500px;
-  height: 500px;
-  background: lime;
+  background: url('../assets/wood.jpg');
   position: absolute;
   top: 50;
   left: 50;
-  // transition: all 0.5s ease-out 0s;
 }
 </style>
