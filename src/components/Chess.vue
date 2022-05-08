@@ -27,14 +27,34 @@ export default {
   data() {
     return {
       field: [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
+        { value: 'rook', team: 2, moved: false },
+        {
+          value: 'knight',
+          team: 2,
+          moved: false,
+        },
+        {
+          value: 'bishop',
+          team: 2,
+          moved: false,
+        },
+        {
+          value: 'queen',
+          team: 2,
+          moved: false,
+        },
+        { value: 'king', team: 2, moved: false },
+        {
+          value: 'bishop',
+          team: 2,
+          moved: false,
+        },
+        {
+          value: 'knight',
+          team: 2,
+          moved: false,
+        },
+        { value: 'rook', team: 2, moved: false },
 
         { value: 'pawn', team: 2, moved: false },
         { value: 'pawn', team: 2, moved: false },
@@ -182,14 +202,14 @@ export default {
       let list = []
 
       if (this.activeCell.value == 'pawn') {
-        if (!this.field[this.activeCellId - 8].value) {
+        if (!this.field[this.activeCellId - 8]?.value) {
           list.push(this.activeCellId - 8)
         }
 
         if (
           !this.activeCell?.moved &&
-          !this.field[this.activeCellId - 16].value &&
-          !this.field[this.activeCellId - 8].value
+          !this.field[this.activeCellId - 16]?.value &&
+          !this.field[this.activeCellId - 8]?.value
         ) {
           list.push(this.activeCellId - 16)
         }
@@ -259,11 +279,11 @@ $item: 100px;
     }
 
     &_pos-move {
-      background: lighten(#fdd9b5, 10%);
+      background: lighten(#fdd9b5, 8%);
     }
 
     p {
-      font-size: 64px;
+      font-size: 96px;
     }
   }
 }
