@@ -29,6 +29,7 @@
 
 body {
   overflow: hidden;
+  user-select: none
 }
 
 #app {
