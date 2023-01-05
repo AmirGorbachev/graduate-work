@@ -16,6 +16,7 @@
             p(v-else-if ='item.value == `queen` && item.team == 2' v-html='`&#9819;`')
             p(v-else-if ='item.value == `king` && item.team == 1' v-html='`&#9812;`')
             p(v-else-if ='item.value == `king` && item.team == 2' v-html='`&#9818;`')
+            pre {{index}}
 
     pre availableMoveListId: {{availableMoveListId}}
 </template>
@@ -192,6 +193,16 @@ export default {
       this.activeCell.team = ''
       this.activeCell.moved = ''
     },
+    checkAvailableMoveKhight(id) {
+      // console.log(this.activeCellId)
+      // console.log(this.activeCellId % 8)
+      // console.log(this.activeCellId % 8 > 1)
+      return (
+        !this.field[this.activeCellId + id]?.value ||
+        (typeof this.field[this.activeCellId + id]?.team == 'number' &&
+          this.activeCell?.team != this.field[this.activeCellId + id]?.team)
+      )
+    },
   },
   computed: {
     availableMoveListId() {
@@ -201,32 +212,69 @@ export default {
 
       let list = []
 
-      if (this.activeCell.value == 'pawn') {
-        if (!this.field[this.activeCellId - 8]?.value) {
-          list.push(this.activeCellId - 8)
-        }
+      switch (this.activeCell.value) {
+        case 'pawn':
+          if (!this.field[this.activeCellId - 8]?.value) {
+            list.push(this.activeCellId - 8)
+          }
 
-        if (
-          !this.activeCell?.moved &&
-          !this.field[this.activeCellId - 16]?.value &&
-          !this.field[this.activeCellId - 8]?.value
-        ) {
-          list.push(this.activeCellId - 16)
-        }
+          if (
+            !this.activeCell?.moved &&
+            !this.field[this.activeCellId - 16]?.value &&
+            !this.field[this.activeCellId - 8]?.value
+          ) {
+            list.push(this.activeCellId - 16)
+          }
 
-        if (
-          typeof this.field[this.activeCellId - 7]?.team == 'number' &&
-          this.activeCell?.team != this.field[this.activeCellId - 7]?.team
-        ) {
-          list.push(this.activeCellId - 7)
-        }
+          if (
+            typeof this.field[this.activeCellId - 7]?.team == 'number' &&
+            this.activeCell?.team != this.field[this.activeCellId - 7]?.team
+          ) {
+            list.push(this.activeCellId - 7)
+          }
 
-        if (
-          typeof this.field[this.activeCellId - 9]?.team == 'number' &&
-          this.activeCell?.team != this.field[this.activeCellId - 9]?.team
-        ) {
-          list.push(this.activeCellId - 9)
-        }
+          if (
+            typeof this.field[this.activeCellId - 9]?.team == 'number' &&
+            this.activeCell?.team != this.field[this.activeCellId - 9]?.team
+          ) {
+            list.push(this.activeCellId - 9)
+          }
+
+          break
+
+        case 'knight':
+          if (this.checkAvailableMoveKhight(6)) {
+            list.push(this.activeCellId + 6)
+          }
+          if (this.checkAvailableMoveKhight(-6)) {
+            list.push(this.activeCellId - 6)
+          }
+          if (this.checkAvailableMoveKhight(10)) {
+            console.log(this.checkAvailableMoveKhight(-10))
+            console.log(this.checkAvailableMoveKhight(-10))
+            console.log('choosen')
+            list.push(this.activeCellId + 10)
+          }
+          if (this.checkAvailableMoveKhight(-10)) {
+            list.push(this.activeCellId - 10)
+          }
+          if (this.checkAvailableMoveKhight(15)) {
+            list.push(this.activeCellId + 15)
+          }
+          if (this.checkAvailableMoveKhight(-15)) {
+            list.push(this.activeCellId - 15)
+          }
+          if (this.checkAvailableMoveKhight(17)) {
+            list.push(this.activeCellId + 17)
+          }
+          if (this.checkAvailableMoveKhight(-17)) {
+            list.push(this.activeCellId - 17)
+          }
+
+          break
+
+        default:
+          console.log('Error: availableMoveListId')
       }
 
       return list
@@ -283,7 +331,7 @@ $item: 100px;
     }
 
     p {
-      font-size: 96px;
+      font-size: 48px;
     }
   }
 }

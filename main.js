@@ -40,7 +40,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1600,
     height: 900,
-    fullscreen: true,
+    // fullscreen: true,
     webPreferences: {
       nodeIntegration: true,
     },
