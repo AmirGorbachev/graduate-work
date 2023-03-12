@@ -1,8 +1,8 @@
 <template lang="pug">
   #app
-    #nav
-      router-link(to="/") Проекты
-      router-link(to="/about") Команды
+    //- #nav
+    //-   router-link(to="/") Проекты
+    //-   router-link(to="/about") Команды
     router-view
 </template>
 
